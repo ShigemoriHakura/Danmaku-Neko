@@ -1,0 +1,19 @@
+{
+    "LoveText": "点亮爱心",
+    "FollowText": "关注了主播",
+    "JoinText": "加入直播间",
+    "JoinClubText": "加入了守护团",
+    "QuitText": "离开直播间",
+    "AvatarRefreshRate": 86400,
+    "BanWords": [
+        "b站",
+        "bilibili",
+        "Bilibili"
+    ],
+    "UserMarks": {
+        "35119946": "开发者",
+        "103411": "开发者",
+        "52326": "AC娘",
+        "23682490": "阿婵"
+    }
+}
