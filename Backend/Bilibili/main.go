@@ -171,7 +171,7 @@ func startBWS(roomID int) {
 			//log.Println(src)
 			if !checkComments(m.Text) {
 				var Medal = new(MedalInfo)
-				Medal.UperID = int64(m.MedalUperId)
+				Medal.UperID = int64(m.MedalId)
 				Medal.UserID = int64(m.UID)
 				Medal.ClubName = m.MedalName
 				Medal.Level = int(m.MedalLevel)
@@ -209,6 +209,7 @@ func startBWS(roomID int) {
 			data.Data.AuthorName = g.UUname
 			data.Data.AuthorType = 0
 			//data.Data.UserMark = getUserMark(d.UserID)
+			data.Data.Num = int(g.Num)
 			data.Data.GiftName = g.GiftName
 			data.Data.TotalCoin = int(g.Price)
 			var dataQ = new(Message)
