@@ -64,10 +64,12 @@ export default {
     if (this.$route.query.renderer != "") {
       this.currentRenderer = this.$route.query.renderer
     }
+    //可能还是需要兼容老样式，方便调试
     if (this.$route.query.config != "") {
       //var b64 = Base64.decode(link)
       //this.jsonstr = JSON.parse(b64);
     }
+    this.config.roomID = this.$route.params.roomId
     //处理WS链接
     this.linkStart()
   },
@@ -94,8 +96,8 @@ export default {
       }
     },
     linkStart() {
-      const url = `wss://danmaku.loli.ren/chat`
-      //const url = `wss://danmu.loli.ren/chat`
+      const url = `wss://danmaku.loli.ren/chat` //A（稳定运行，感谢Orzogc的后端支持）
+      //const url = `wss://danmu.loli.ren/chat` //B（修复中）
       this.webSocketConnection = new WebSocket(url)
       this.webSocketConnection.onopen = this.onWsOpen
       this.webSocketConnection.onclose = this.onWsClose
@@ -109,7 +111,7 @@ export default {
         cmd: COMMAND_JOIN_ROOM,
         data: {
           roomId: parseInt(this.$route.params.roomId),
-          version: "2.3.3",
+          version: "1.0.0",
           isfirstLoad: true,
           config: {
             autoTranslate: false
@@ -139,6 +141,7 @@ export default {
       //console.log(data)
       //console.log(cmd)
       let message = null
+      //优先进行处理后保存至store，再由渲染器处理渲染
       switch (cmd) {
         case COMMAND_HEARTBEAT:
           this.status.server = Date.now()
@@ -193,6 +196,7 @@ export default {
           break
       }
       if (message) {
+        message.type = cmd
         this.$store.state.roomInfo.danmakuList.unshift(message)
       }
     },
